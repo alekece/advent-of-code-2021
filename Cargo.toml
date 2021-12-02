@@ -1,5 +1,6 @@
 [workspace]
 
 members = [
+    "advent-of-code-core",
     "advent-of-code-day1",
 ]
