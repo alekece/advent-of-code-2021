@@ -1,3 +1,4 @@
+use std::fs::File;
 use std::path::PathBuf;
 
 use structopt::StructOpt;
@@ -14,13 +15,8 @@ struct Opt {
   debug: bool,
 }
 
-fn main() -> Result<()> {
-  color_eyre::install()?;
-
-  let opt = Opt::from_args();
-  let depths = aoc_core::read_lines_as::<usize>(opt.filename)?;
-
-  let depths = match opt.puzzle {
+fn solve_puzzle(depths: Vec<usize>, puzzle: Puzzle, debug: bool) -> usize {
+  let depths = match puzzle {
     Puzzle::Part1 => depths,
     Puzzle::Part2 => depths
       .windows(3)
@@ -37,17 +33,64 @@ fn main() -> Result<()> {
         _ => ("decreased", counter),
       };
 
-      if opt.debug {
+      if debug {
         println!("{} ({})", depth, message);
       }
 
       (Some(depth), counter)
     });
 
-  println!(
-    "There are {} measurements that are larger than the previous measurement",
-    counter
-  );
+  counter
+}
+
+fn main() -> Result<()> {
+  color_eyre::install()?;
+
+  let opt = Opt::from_args();
+  let depths = aoc_core::read_lines(File::open(opt.filename)?)?;
+  let result = solve_puzzle(depths, opt.puzzle, opt.debug);
+
+  println!("{}", result);
 
   Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  const EXAMPLE_DATA: &str = r"199
+200
+208
+210
+200
+207
+240
+269
+260
+263
+";
+
+  const EXAMPLE_RESPONSE_PART1: usize = 7;
+  const EXAMPLE_RESPONSE_PART2: usize = 5;
+
+  #[test]
+  fn it_solves_example_input_part1() -> Result<()> {
+    let depths = aoc_core::read_lines(EXAMPLE_DATA.as_bytes())?;
+    let counter = solve_puzzle(depths, Puzzle::Part1, true);
+
+    assert_eq!(EXAMPLE_RESPONSE_PART1, counter);
+
+    Ok(())
+  }
+
+  #[test]
+  fn it_solves_examples_input_part2() -> Result<()> {
+    let depths = aoc_core::read_lines(EXAMPLE_DATA.as_bytes())?;
+    let counter = solve_puzzle(depths, Puzzle::Part2, true);
+
+    assert_eq!(EXAMPLE_RESPONSE_PART2, counter);
+
+    Ok(())
+  }
 }

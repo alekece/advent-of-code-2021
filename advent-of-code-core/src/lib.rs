@@ -1,6 +1,4 @@
-use std::fs::File;
-use std::io::{BufRead, BufReader};
-use std::path::PathBuf;
+use std::io::{BufRead, BufReader, Read};
 use std::str::FromStr;
 
 use strum::EnumString;
@@ -15,13 +13,12 @@ pub enum Puzzle {
   Part2,
 }
 
-pub fn read_lines_as<T>(filename: PathBuf) -> Result<Vec<T>>
+pub fn read_lines<T>(reader: impl Read) -> Result<Vec<T>>
 where
   T: FromStr,
   T::Err: Into<Error>,
 {
-  let file = File::open(filename)?;
-  let reader = BufReader::new(file);
+  let reader = BufReader::new(reader);
 
   reader
     .lines()

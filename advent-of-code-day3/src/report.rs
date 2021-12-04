@@ -1,13 +1,14 @@
+use std::io::Read;
+
 use aoc_core::Result;
-use std::path::PathBuf;
 
 use crate::bitset::BitSet;
 
 pub struct Report(Vec<BitSet>);
 
 impl Report {
-  pub fn from_file(filename: impl Into<PathBuf>) -> Result<Self> {
-    let bit_sets = aoc_core::read_lines_as::<BitSet>(filename.into())?;
+  pub fn from_reader(reader: impl Read) -> Result<Self> {
+    let bit_sets = aoc_core::read_lines(reader)?;
 
     Ok(Self(bit_sets))
   }
