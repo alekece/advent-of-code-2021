@@ -4,5 +4,6 @@ members = [
     "advent-of-code-core",
     "advent-of-code-day1",
     "advent-of-code-day2",
-    "advent-of-code-day3"
+    "advent-of-code-day3",
+    "advent-of-code-day4"
 ]
