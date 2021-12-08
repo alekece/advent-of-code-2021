@@ -8,5 +8,6 @@ members = [
     "advent-of-code-day4",
     "advent-of-code-day5",
     "advent-of-code-day6",
-    "advent-of-code-day7"
+    "advent-of-code-day7",
+    "advent-of-code-day8"
 ]
