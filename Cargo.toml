@@ -11,5 +11,6 @@ members = [
     "advent-of-code-day7",
     "advent-of-code-day8",
     "advent-of-code-day9",
-    "advent-of-code-day10"
+    "advent-of-code-day10",
+    "advent-of-code-day11"
 ]
