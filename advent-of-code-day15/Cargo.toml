@@ -1,0 +1,14 @@
+[package]
+name = "advent-of-code-day15"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.56"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+color-eyre = "0.5.11"
+eyre = "0.6.5"
+structopt = "0.3.25"
+aoc_core = { path = "../advent-of-code-core", package = "advent-of-code-core" }
+bounded-integer = { version = "0.5.0", features = ["types"] }
